@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import WebcamCapture from 'Components/Webcam'
+import WebcamCapture from './Components/Webcam.js';
 
 class App extends Component {
   render() {
