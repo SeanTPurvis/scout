@@ -1,2 +1,2 @@
 # scout
-Project for collecting sensor data from internet enabled devices.
+Project for collecting sensor data from internet connected devices.
