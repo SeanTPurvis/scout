@@ -1,7 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const mongoose = require('mongoose');
 
+mongoose.connect("mongodb://SeanTPurvis:" + process.env.MONGO_ATLAS_PASSWORD + "@scout-shard-00-00-iszaz.mongodb.net:27017,scout-shard-00-01-iszaz.mongodb.net:27017,scout-shard-00-02-iszaz.mongodb.net:27017/test?ssl=true&replicaSet=Scout-shard-0&authSource=admin&retryWrites=true",
+{
+    useMongoClient: true
+})
 
 // Include custom Routers
 const imageRoutes = require('./api/routes/images');
