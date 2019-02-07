@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 
 // Mongo URI
-const mongoURI = 'mongodb+srv://sean:sean@scout-iszaz.mongodb.net/test?retryWrites=true';
+const mongoURI = 'mongodb+srv://sean:'+ process.env.MONGO_ATLAS_PW + '@scout-iszaz.mongodb.net/test?retryWrites=true';
 
 // Create mongo connection
 const conn = mongoose.createConnection(mongoURI);
