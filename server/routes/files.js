@@ -12,7 +12,7 @@ const router = express.Router();
 const mongoURI = 'mongodb+srv://sean:sean@scout-iszaz.mongodb.net/test?retryWrites=true';
 
 // Create mongo connection
-const conn = mongoose.createConnection(mongoURI, { useNewUrlParser: true });
+const conn = mongoose.createConnection(mongoURI);
 
 // Init gfs
 let gfs;
@@ -50,7 +50,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 
 // GET /files
 // Display all files in JSON
-router.get('/files', (req, res) => {
+router.get('/', (req, res) => {
     gfs.files.find().toArray((err, files) => {
         // Check for files
         if (!files || files.length === 0) {
@@ -58,21 +58,19 @@ router.get('/files', (req, res) => {
                 err: 'No files exist'
             });
         }
-
         return res.json(files);
     });
 }); 
 
 // GET /files/:filename
 // Display single object in JSON
-router.get('/files/:filename', (req, res) => {
+router.get('/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({
-                err: 'No file exists'
+                message: 'No file exists'
             });
         };
-
         return res.json(file);
     });
 });
@@ -83,7 +81,7 @@ router.get('/image/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({
-                err: 'No file exists'
+                message: 'No file exists'
             });
         };
 
@@ -93,8 +91,8 @@ router.get('/image/:filename', (req, res) => {
             const readstream = gfs.createReadStream(file.filename);
             readstream.pipe(res);
         } else {
-            res.status(404).json({
-                err: 'Not an image'
+            res.status(400).json({
+                message: 'Not an image'
             })
         }
     });
@@ -102,10 +100,10 @@ router.get('/image/:filename', (req, res) => {
 
 // DELETE /files/:id
 // Delete file
-router.delete('/files/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
       if (err) {
-        return res.status(404).json({ err: err });
+        return res.status(500).json({ message: err });
       }
     });
   });
