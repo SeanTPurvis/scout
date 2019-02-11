@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 // Mongo URI
-const mongoURI = 'mongodb+srv://sean:sean@scout-iszaz.mongodb.net/test?retryWrites=true';
+const mongoURI = 'mongodb+srv://sean:'+ process.env.MONGO_ATLAS_PW + '@scout-iszaz.mongodb.net/test?retryWrites=true';
 
 // Routers
 const fileRoutes = require('./routes/files');
