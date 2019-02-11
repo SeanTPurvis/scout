@@ -5,6 +5,7 @@ const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const mongoose = require('mongoose');
+const Auth = require('../middleware/auth')
 
 const router = express.Router();
 
@@ -44,13 +45,13 @@ const storage = new GridFsStorage({
 
 // POST /upload
 // Uploads files to database
-router.post('/upload', upload.single('image'), (req, res) => {
+router.post('/upload', Auth, upload.single('image'), (req, res) => {
     res.json({file: req.file});
 });
 
 // GET /files
 // Display all files in JSON
-router.get('/', (req, res) => {
+router.get('/', Auth, (req, res) => {
     gfs.files.find().toArray((err, files) => {
         // Check for files
         if (!files || files.length === 0) {
@@ -64,7 +65,7 @@ router.get('/', (req, res) => {
 
 // GET /files/:filename
 // Display single object in JSON
-router.get('/:filename', (req, res) => {
+router.get('/:filename', Auth, (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({
@@ -77,7 +78,7 @@ router.get('/:filename', (req, res) => {
 
 // GET /image/:filename
 // Display image
-router.get('/image/:filename', (req, res) => {
+router.get('/image/:filename', Auth, (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({
@@ -100,7 +101,7 @@ router.get('/image/:filename', (req, res) => {
 
 // DELETE /files/:id
 // Delete file
-router.delete('/:id', (req, res) => {
+router.delete('/:id', Auth, (req, res) => {
     gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
       if (err) {
         return res.status(500).json({ message: err });
