@@ -14,6 +14,7 @@ const mongoURI = 'mongodb+srv://sean:'+ process.env.MONGO_ATLAS_PW + '@scout-isz
 // Routers
 const fileRoutes = require('./routes/files');
 const userRoutes = require('./routes/users');
+const accelerometerRoutes = require('./routes/accelerometer');
 
 // Setup Mongoose
 mongoose.connect(mongoURI);
@@ -25,5 +26,6 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/files', fileRoutes);
+app.use('/api/v1/accelerometer', accelerometerRoutes);
 
 module.exports = app;
