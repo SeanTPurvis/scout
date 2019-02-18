@@ -8,9 +8,9 @@ exports.accelerometer_create = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         user_email: req.body.user_email,
         time: req.body.time,
-        x_axis: req.body.x_axis,
-        y_axis: req.body.y_axis,
-        z_axis: req.body.z_axis
+        x_acceleration: req.body.x_acceleration,
+        y_acceleration: req.body.y_acceleration,
+        z_acceleration: req.body.z_acceleration
     });
 
     accelerometer.save()
@@ -30,7 +30,7 @@ exports.accelerometer_create = (req, res, next) => {
 // Get all accelerometer documents
 exports.accelerometer_get_all = (req, res, next) => {
     Accelerometer.find()
-    .select("_id user_email time x_axis y_axis z_axis")
+    .select("_id user_email time x_acceleration y_acceleration z_acceleration")
     .exec()
     .then(documents => {
         
@@ -41,9 +41,9 @@ exports.accelerometer_get_all = (req, res, next) => {
                     _id: document._id,
                     user_email: document.user_email,
                     time: document.time,
-                    x_axis: document.x_axis,
-                    y_axis: document.y_axis,
-                    z_axis: document.z_axis
+                    x_acceleration: document.x_acceleration,
+                    y_acceleration: document.y_acceleration,
+                    z_acceleration: document.z_acceleration
                 }
             })
         };
@@ -63,7 +63,7 @@ exports.accelerometer_get_all = (req, res, next) => {
 exports.accelerometer_get_one = (req, res, next) => {
     const id = req.params.accId;
     Accelerometer.findById(id)
-    .select("_id user_email time x_axis y_axis z_axis")
+    .select("_id user_email time x_acceleration y_acceleration z_acceleration")
     .exec()
     .then(accelerometer => {
         if (!accelerometer) {

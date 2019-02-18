@@ -11,6 +11,6 @@ router.get('/:accId', AccelerometerController.accelerometer_get_one);
 
 router.delete('/:accId', AccelerometerController.accelerometer_delete_one);
 
-router.delete('/user/:userEmail', AccelerometerController.accelerometer_delete_many_email);
+router.delete('/security/:userEmail', AccelerometerController.accelerometer_delete_many_email);
 
 module.exports = router;
