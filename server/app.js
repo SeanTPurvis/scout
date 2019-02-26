@@ -16,6 +16,7 @@ const fileRoutes = require('./routes/files');
 const userRoutes = require('./routes/users');
 const accelerometerRoutes = require('./routes/accelerometers');
 const gyroscopeRoutes = require('./routes/gyroscopes');
+const absorientationRoutes = require('./routes/absorientation');
 
 // Setup Mongoose
 mongoose.connect(mongoURI);
@@ -29,5 +30,6 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/files', fileRoutes);
 app.use('/api/v1/accelerometer', accelerometerRoutes);
 app.use('/api/v1/gyroscope', gyroscopeRoutes);
+app.use('/api/v1/absorientation', absorientationRoutes);
 
 module.exports = app;
