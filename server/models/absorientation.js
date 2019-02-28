@@ -9,3 +9,5 @@ const absorientationSchema = mongoose.Schema({
     z_position: { type: Number },
     w_position: { type: Number }
 })
+
+module.exports = mongoose.model('Absorientation', absorientationSchema);

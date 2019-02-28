@@ -6,3 +6,5 @@ const microphoneSchema = mongoose.Schema({
     time: { type: Date, default: Date.now },
     capture: Buffer
 })
+
+module.exports = mongoose.model('Microphone', microphoneSchema);
