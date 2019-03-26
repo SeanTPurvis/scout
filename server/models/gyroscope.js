@@ -9,4 +9,4 @@ const gyroscopeSchema = mongoose.Schema({
     z_angular_velocity: { type: Number } 
 });
 
-module.exports = mongoose.model('gyroscope', gyroscopeSchema);
+module.exports = mongoose.model('Gyroscope', gyroscopeSchema);

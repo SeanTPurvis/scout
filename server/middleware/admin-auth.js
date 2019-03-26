@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt.verify(token, process.env.JWT_KEY, null);
         res.locals.userData = decoded;
+        if (decoded.admin != true) throw new Error("Admin auth failed")
         next();
     } catch(error) {
         return res.status(401).json({

@@ -5,7 +5,8 @@ const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const mongoose = require('mongoose');
-const Auth = require('../middleware/auth')
+const Auth = require('../middleware/auth');
+const AdminAuth = require('../middleware/admin-auth');
 
 const router = express.Router();
 
@@ -101,7 +102,7 @@ router.get('/image/:filename', Auth, (req, res) => {
 
 // DELETE /files/:id
 // Delete file
-router.delete('/:id', Auth, (req, res) => {
+router.delete('/:id', AdminAuth, (req, res) => {
     gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
       if (err) {
         return res.status(500).json({ message: err });
