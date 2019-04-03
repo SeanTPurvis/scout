@@ -18,6 +18,7 @@ const accelerometerRoutes = require('./routes/accelerometers');
 const gyroscopeRoutes = require('./routes/gyroscopes');
 const absorientationRoutes = require('./routes/absorientation');
 const microphoneRoutes = require('./routes/microphone');
+const relorientationRoutes = require('./routes/relorientation')
 
 // Setup Mongoose
 mongoose.connect(mongoURI);
@@ -33,5 +34,6 @@ app.use('/api/v1/accelerometer', accelerometerRoutes);
 app.use('/api/v1/gyroscope', gyroscopeRoutes);
 app.use('/api/v1/absorientation', absorientationRoutes);
 app.use('/api/v1/microphone', microphoneRoutes);
+app.use('/api/v1/relorientation', relorientationRoutes);
 
 module.exports = app;
