@@ -21,16 +21,24 @@ exports.user_signup = (req, res, next) => {
                     error: err
                 });
             } else {
-                const user = new User({
-                    _id: new mongoose.Types.ObjectId(),
-                    email: req.body.email,
-                    password: hash,
-                    admin: req.body.admin
+            const user = new User({
+              _id: new mongoose.Types.ObjectId(),
+              email: req.body.email,
+              password: hash,
+              admin: req.body.admin   
             });
             user.save()
             .then(result => {
+            const token = jwt.sign({
+              email: req.body.email,
+            }, process.env.JWT_KEY,
+            {
+              expiresIn: "3h"
+            });
                 res.status(201).json({
-                    message: 'User created'
+                    message: 'User created',
+                    token: token,
+                    email: req.body.email
                 })
             })
             .catch(err => {
@@ -72,7 +80,8 @@ exports.user_login = (req, res, next) => {
           });
           return res.status(200).json({
             message: 'Auth success',
-            token: token
+            token: token,
+            user: user[0].email
           })
         }
         return res.status(401).json({
