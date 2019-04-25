@@ -29,7 +29,7 @@ const RegisterPage = () => {
           console.log(res);
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', res.data.user);
-          localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 1000)))
+          localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 3000)))
           setIsSuccess(true);
         })
         .catch(err => {
@@ -42,7 +42,7 @@ const RegisterPage = () => {
     return (
         <div>
           {isSuccess && <Redirect to="/secure"/>}
-          <h3>Login</h3>
+          <h3>Register</h3>
             <form onSubmit={e => {handleSubmit(); e.preventDefault()}}>
               <input
                 value={email}

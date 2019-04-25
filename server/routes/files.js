@@ -46,13 +46,13 @@ const storage = new GridFsStorage({
 
 // POST /upload
 // Uploads files to database
-router.post('/upload', Auth, upload.single('image'), (req, res) => {
+router.post('/upload', upload.single('image'), (req, res) => {
     res.json({file: req.file});
 });
 
 // GET /files
 // Display all files in JSON
-router.get('/', Auth, (req, res) => {
+router.get('/', (req, res) => {
     gfs.files.find().toArray((err, files) => {
         // Check for files
         if (!files || files.length === 0) {
@@ -66,7 +66,7 @@ router.get('/', Auth, (req, res) => {
 
 // GET /files/:filename
 // Display single object in JSON
-router.get('/:filename', Auth, (req, res) => {
+router.get('/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({
@@ -79,7 +79,7 @@ router.get('/:filename', Auth, (req, res) => {
 
 // GET /image/:filename
 // Display image
-router.get('/image/:filename', Auth, (req, res) => {
+router.get('/image/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if (!file || file.length === 0) {
             return res.status(404).json({

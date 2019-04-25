@@ -6,6 +6,7 @@ const NavBar = () => {
   const logoutHandler = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('expirationDate');
   }
 
     return (

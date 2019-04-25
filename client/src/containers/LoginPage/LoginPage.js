@@ -22,7 +22,7 @@ const LoginPage = () => {
           console.log(res);
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', res.data.user);
-          localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 1000)))
+          localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 3000)))
           setIsSuccess(true);
         })
         .catch(err => {
