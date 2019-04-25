@@ -23,7 +23,9 @@ const linaccelerationRoutes = require('./routes/linacceleration');
 const ambientlightRoutes = require('./routes/ambientlight');
 
 // Setup Mongoose
-mongoose.connect(mongoURI);
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true
+});
 mongoose.Promise = global.Promise;
 
 // Middleware

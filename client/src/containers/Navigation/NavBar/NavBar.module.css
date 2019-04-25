@@ -1,0 +1,32 @@
+.NavBarHeader {
+    background-color: #282c34;
+    min-height: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.NavBarHeader ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+
+}
+
+.NavBarHeader li {
+    display: inline-block;
+    margin: 20px;
+}
+
+.NavBarHeader a {
+    text-decoration: none;
+    color: white;
+}
+
+.NavBarHeader a:hover,
+.NavBarHeader a:active {
+    color: salmon;
+}

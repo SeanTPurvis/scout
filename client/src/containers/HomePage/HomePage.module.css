@@ -1,0 +1,9 @@
+.HomePage a {
+    text-decoration: none;
+    color: black;
+}
+
+.HomePage a:hover,
+.HomePage a:active {
+    color: salmon;
+}
