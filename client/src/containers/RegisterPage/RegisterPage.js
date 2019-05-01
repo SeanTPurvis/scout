@@ -20,7 +20,7 @@ const RegisterPage = () => {
       }
       setIsLoading(true);
       setIsError(false);
-      axios.post("http://localhost:3001/api/v1/users/signup", {
+      axios.post("/api/v1/users/signup", {
         email: email,
         password: password
       })

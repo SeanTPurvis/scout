@@ -13,7 +13,7 @@ const LoginPage = () => {
     const handleSubmit = () => {
       setIsLoading(true);
       setIsError(false);
-      axios.post("http://localhost:3001/api/v1/users/login", {
+      axios.post("/api/v1/users/login", {
         email: email,
         password: password
       })

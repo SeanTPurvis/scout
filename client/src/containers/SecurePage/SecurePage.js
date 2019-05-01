@@ -19,8 +19,8 @@ const SecurePage = () => {
             return;
         }
         setIsLoggedIn(true);
-        // setThisInterval(setInterval(() => captureImage(), 1000));
-        // return clearInterval(interval);
+        setThisInterval(setInterval(() => captureImage(), 1000));
+        return clearInterval(interval);
     },[])
 
     const videoConstraints = {
@@ -35,7 +35,7 @@ const SecurePage = () => {
         const imageSrc = webcam.current.getScreenshot();
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-        axios.post("http://localhost:3001/api/v1/image/", {
+        axios.post("/api/v1/image/", {
             user_email: user,
             data: imageSrc
         }, {
