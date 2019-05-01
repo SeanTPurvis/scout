@@ -1,24 +1,32 @@
 import React, {useState} from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 
-const LoginPage = () => {
+const RegisterPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isMatch, setIsMatch] = useState(true);
 
     const handleSubmit = () => {
+      setIsMatch(true);
+      if (password !== passwordConfirm) {
+          setIsMatch(false);
+          return
+      }
       setIsLoading(true);
       setIsError(false);
-      axios.post("http://localhost:3001/api/v1/users/login", {
+      axios.post("/api/v1/users/signup", {
         email: email,
         password: password
       })
         .then(res => {
           setIsLoading(false);
+          console.log(res);
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', res.data.user);
           localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 3000)))
@@ -34,8 +42,8 @@ const LoginPage = () => {
     return (
         <div>
           {isSuccess && <Redirect to="/secure"/>}
-          <h3>Login</h3>
-            <form onSubmit={event => {handleSubmit(); event.preventDefault()}}>
+          <h3>Register</h3>
+            <form onSubmit={e => {handleSubmit(); e.preventDefault()}}>
               <input
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -52,12 +60,21 @@ const LoginPage = () => {
                 name="password"
                 required
               />
-              <button type="submit">Login</button>
+              <input
+                value={passwordConfirm}
+                onChange={e => setPasswordConfirm(e.target.value)}
+                placeholder="Confirm Password"
+                type="password"
+                name="password_confirm"
+                required
+              />
+              <button type="submit">Register</button>
             </form>
+          {!isMatch && <div>Password's must match</div>}
           {isLoading && <div>Loading ... </div> }
           {isError && <div>Something went wrong ...</div>}  
         </div>
     )
 }
 
-export default LoginPage;
+export default RegisterPage;
