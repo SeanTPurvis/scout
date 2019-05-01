@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const SecurePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [interval, setThisInterval] = useState();
     
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -18,6 +19,8 @@ const SecurePage = () => {
             return;
         }
         setIsLoggedIn(true);
+        // setThisInterval(setInterval(() => captureImage(), 1000));
+        // return clearInterval(interval);
     },[])
 
     const videoConstraints = {
@@ -28,19 +31,16 @@ const SecurePage = () => {
 
     const webcam = useRef();
 
-    const capture = () => {
+    const captureImage = () => {
         const imageSrc = webcam.current.getScreenshot();
-        console.log(imageSrc);
-        // axios.post("http://localhost:3001/api/v1/files/upload", {
-        //     file: imageSrc
-        // })
-        // .then(res => {
-        //     console.log(res);
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
-
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        axios.post("http://localhost:3001/api/v1/image/", {
+            user_email: user,
+            data: imageSrc
+        }, {
+            headers: {'Authorization': 'Bearer ' + token },
+        })
     }
 
     return (
@@ -48,7 +48,6 @@ const SecurePage = () => {
         {!isLoggedIn && <div>
             <Redirect to="/"/>
         </div>}
-
         <Webcam
         audio={true}
         height={350}
@@ -57,7 +56,6 @@ const SecurePage = () => {
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
         />
-        <button onClick={() => capture()}>Click Me!</button>
         </div>
     )
 }

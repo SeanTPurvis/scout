@@ -19,7 +19,6 @@ const LoginPage = () => {
       })
         .then(res => {
           setIsLoading(false);
-          console.log(res);
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', res.data.user);
           localStorage.setItem('expirationDate', new Date(new Date().getTime() + (3600 * 3000)))
@@ -36,7 +35,7 @@ const LoginPage = () => {
         <div>
           {isSuccess && <Redirect to="/secure"/>}
           <h3>Login</h3>
-            <form onSubmit={e => {handleSubmit(); e.preventDefault()}}>
+            <form onSubmit={event => {handleSubmit(); event.preventDefault()}}>
               <input
                 value={email}
                 onChange={e => setEmail(e.target.value)}
