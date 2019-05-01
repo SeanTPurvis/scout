@@ -9,9 +9,9 @@ router.post('/', Auth, AmbientlightController.ambientlight_create);
 
 router.get('/', Auth, AmbientlightController.ambientlight_get_all);
 
-router.get('/:accId', Auth, AmbientlightController.ambientlight_get_one);
+router.get('/:ambId', Auth, AmbientlightController.ambientlight_get_one);
 
-router.delete('/:accId', AdminAuth, AmbientlightController.ambientlight_delete_one);
+router.delete('/:ambId', AdminAuth, AmbientlightController.ambientlight_delete_one);
 
 router.delete('/security/:userEmail', AdminAuth, AmbientlightController.ambientlight_delete_many_email);
 

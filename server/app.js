@@ -21,6 +21,7 @@ const microphoneRoutes = require('./routes/microphone');
 const relorientationRoutes = require('./routes/relorientation');
 const linaccelerationRoutes = require('./routes/linacceleration');
 const ambientlightRoutes = require('./routes/ambientlight');
+const imageRoutes = require('./routes/image');
 
 // Setup Mongoose
 mongoose.connect(mongoURI, {
@@ -41,5 +42,6 @@ app.use('/api/v1/microphone', microphoneRoutes);
 app.use('/api/v1/relorientation', relorientationRoutes);
 app.use('/api/v1/linacceleration', linaccelerationRoutes);
 app.use('/api/v1/ambientlight', ambientlightRoutes);
+app.use('/api/v1/image', imageRoutes);
 
 module.exports = app;

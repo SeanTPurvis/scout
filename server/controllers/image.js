@@ -1,20 +1,20 @@
 const mongoose = require("mongoose");
 
-const Microphone = require('../models/microphone')
+const Image = require('../models/image')
 
-// Create new microphone document
-exports.microphone_create = (req, res, next) => {
-    const microphone = new Microphone({
+// Create new image document
+exports.image_create = (req, res, next) => {
+    const image = new Image({
         _id: new mongoose.Types.ObjectId(),
         user_email: req.body.user_email,
         time: req.body.time,
-        capture: req.body.capture
+        data: req.body.data
     });
 
-    microphone.save()
+    image.save()
     .then(result => {
         res.status(201).json({
-            message: 'Microphone reading created'
+            message: 'Image reading created'
         })
     })
     .catch(err => {
@@ -25,21 +25,21 @@ exports.microphone_create = (req, res, next) => {
     });
 }
 
-// Get all microphone documents
-exports.microphone_get_all = (req, res, next) => {
-    Microphone.find()
-    .select("_id user_email time capture")
+// Get all image documents
+exports.image_get_all = (req, res, next) => {
+    Image.find()
+    .select("_id user_email time mage")
     .exec()
     .then(documents => {
         
         const responseBody = {
             count: documents.length,
-            microphones: documents.map(document => {
+            images: documents.map(document => {
                 return {
                     _id: document._id,
                     user_email: document.user_email,
                     time: document.time,
-                    capture: document.capture
+                    data: document.data
                 }
             })
         };
@@ -55,21 +55,21 @@ exports.microphone_get_all = (req, res, next) => {
 
 }
 
-// Get one microphone document
-exports.microphone_get_one = (req, res, next) => {
-    const id = req.params.micId;
-    Microphone.findById(id)
-    .select("_id user_email time capture")
+// Get one image document
+exports.image_get_one = (req, res, next) => {
+    const id = req.params.imageId;
+    Image.findById(id)
+    .select("_id user_email time data")
     .exec()
-    .then(microphone => {
-        if (!microphone) {
+    .then(image => {
+        if (!image) {
             return res.status(404).json({
-                message: "Microphone reading not found"
+                message: "Image reading not found"
             });
         };
         
         res.status(200).json({
-            microphone: microphone
+            image: image
         });
     })
     .catch(err => {
@@ -80,14 +80,14 @@ exports.microphone_get_one = (req, res, next) => {
     })
 };
 
-// Delete one microphone document
-exports.microphone_delete_one = (req, res, next) => {
-    const id = req.params.micId;
-    Microphone.remove({_id: id})
+// Delete one image document
+exports.image_delete_one = (req, res, next) => {
+    const id = req.params.imageId;
+    Image.remove({_id: id})
     .exec()
     .then(result => {
         res.status(200).json({
-            message: "Microphone deleted"
+            message: "Image deleted"
         })
     })
     .catch(err => {
@@ -98,14 +98,14 @@ exports.microphone_delete_one = (req, res, next) => {
     })
 }
 
-// Delete all microphone documents that match the user_email provided
-exports.microphone_delete_many_email = (req, res, next) => {
+// Delete all image documents that match the user_email provided
+exports.image_delete_many_email = (req, res, next) => {
     const email = req.params.userEmail;
-    Microphone.deleteMany({user_email: email})
+    Image.deleteMany({user_email: email})
     .exec()
     .then(result => {
         res.status(200).json({
-            message: "All microphone data by user deleted"
+            message: "All image data by user deleted"
         })
     })
     .catch(err => {
