@@ -9,9 +9,9 @@ router.post('/', Auth, LinaccelerationController.linacceleration_create);
 
 router.get('/', Auth, LinaccelerationController.linacceleration_get_all);
 
-router.get('/:accId', Auth, LinaccelerationController.linacceleration_get_one);
+router.get('/:linaccId', Auth, LinaccelerationController.linacceleration_get_one);
 
-router.delete('/:accId', AdminAuth, LinaccelerationController.linacceleration_delete_one);
+router.delete('/:linaccId', AdminAuth, LinaccelerationController.linacceleration_delete_one);
 
 router.delete('/security/:userEmail', AdminAuth, LinaccelerationController.linacceleration_delete_many_email);
 

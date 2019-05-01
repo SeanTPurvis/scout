@@ -57,7 +57,7 @@ exports.ambientlight_get_all = (req, res, next) => {
 
 // Get one ambientlight document
 exports.ambientlight_get_one = (req, res, next) => {
-    const id = req.params.absId;
+    const id = req.params.ambId;
     Ambientlight.findById(id)
     .select("_id user_email time x_position y_position z_position w_position")
     .exec()
@@ -82,7 +82,7 @@ exports.ambientlight_get_one = (req, res, next) => {
 
 // Delete one ambientlight document
 exports.ambientlight_delete_one = (req, res, next) => {
-    const id = req.params.absId;
+    const id = req.params.ambId;
     Ambientlight.remove({_id: id})
     .exec()
     .then(result => {

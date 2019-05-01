@@ -61,7 +61,7 @@ exports.linacceleration_get_all = (req, res, next) => {
 
 // Get one linacceleration document
 exports.linacceleration_get_one = (req, res, next) => {
-    const id = req.params.accId;
+    const id = req.params.linaccId;
     Linacceleration.findById(id)
     .select("_id user_email time x_acceleration y_acceleration z_acceleration")
     .exec()
@@ -86,7 +86,7 @@ exports.linacceleration_get_one = (req, res, next) => {
 
 // Delete one linacceleration document
 exports.linacceleration_delete_one = (req, res, next) => {
-    const id = req.params.accId;
+    const id = req.params.linaccId;
     Linacceleration.remove({_id: id})
     .exec()
     .then(result => {

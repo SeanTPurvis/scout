@@ -8,9 +8,9 @@ router.post('/', Auth, MicrophoneController.microphone_create);
 
 router.get('/', Auth, MicrophoneController.microphone_get_all);
 
-router.get('/:microId', Auth, MicrophoneController.microphone_get_one);
+router.get('/:micId', Auth, MicrophoneController.microphone_get_one);
 
-router.delete('/:microId', AdminAuth, MicrophoneController.microphone_delete_one);
+router.delete('/:micId', AdminAuth, MicrophoneController.microphone_delete_one);
 
 router.delete('/security/:userEmail', AdminAuth, MicrophoneController.microphone_delete_many_email);
 
