@@ -9,7 +9,8 @@ const SecurePage = () => {
     
     
     useEffect(() => {
-	    let accelerometer = new Accelerometer({frequency: 60});
+        let accelerometer = new Accelerometer({frequency: 60});
+        accelerometer.start
 	    accelerometer.addEventListener('reading', e => {
 		axios.post("/api/v1/accelerometer", {
             user_email: localStorage.getItem('user'),
