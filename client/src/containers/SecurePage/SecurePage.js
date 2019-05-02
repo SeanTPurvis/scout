@@ -7,7 +7,19 @@ const SecurePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [interval, setThisInterval] = useState();
     
+    
     useEffect(() => {
+	let accelerometer = new Accelerometer({frequency: 60});
+	accelerometer.addEventListener('reading', e => {
+		axios.post("/api/v1/accelerometer", {
+            user_email: localStorage.getItem('user'),
+            x_acceleration: accelerometer.x,                        
+            y_acceleration: accelerometer.y,    
+            z_acceleration: accelerometer.z,    
+		}, {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('token') },
+	})
+
         const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         if (!token) {
