@@ -5,22 +5,33 @@ import axios from 'axios';
 
 const SecurePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
-    const [interval, setThisInterval] = useState();
+    const [intervalImage, setThisIntervalImage] = useState();
+    const [intervalImageAbsoluteOrientation, setThisIntervalAbsoluteOrientation] = useState();
     
     
     useEffect(() => {
-        let accelerometer = new Accelerometer({frequency: 60});
-        accelerometer.start
-	    accelerometer.addEventListener('reading', e => {
-		axios.post("/api/v1/accelerometer", {
-            user_email: localStorage.getItem('user'),
-            x_acceleration: accelerometer.x,                        
-            y_acceleration: accelerometer.y,    
-            z_acceleration: accelerometer.z,    
-		}, {
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('token') },
-            })
-        });
+        const options = { frequency: 60, referenceFrame: 'device' };
+        const sensor = new AbsoluteOrientationSensor(options);
+        sensor.start();
+        setThisIntervalAbsoluteOrientation(setInterval(() => {
+            console.log(sensor.quarternion)
+        }, 1000));
+        sensor.onerror = event => {
+          if (event.error.name === 'SecurityError')
+            console.log("No permissions to use AbsoluteOrientationSensor.");
+        };        
+        // let accelerometer = new Accelerometer({frequency: 60});
+        // accelerometer.start
+	    // accelerometer.addEventListener('reading', e => {
+		// axios.post("/api/v1/accelerometer", {
+        //     user_email: localStorage.getItem('user'),
+        //     x_acceleration: accelerometer.x,                        
+        //     y_acceleration: accelerometer.y,    
+        //     z_acceleration: accelerometer.z,    
+		// }, {
+        // headers: {'Authorization': 'Bearer ' + localStorage.getItem('token') },
+        //     })
+        // });
 
         const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
@@ -33,8 +44,11 @@ const SecurePage = () => {
             return;
         }
         setIsLoggedIn(true);
-        setThisInterval(setInterval(() => captureImage(), 1000));
-        return clearInterval(interval);
+        setThisIntervalImage(setInterval(() => captureImage(), 1000));
+        return (() => {
+            clearInterval(intervalImage);
+        }
+    );
     },[])
 
     const videoConstraints = {
