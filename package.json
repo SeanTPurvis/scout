@@ -2,6 +2,9 @@
   "name": "scout-server",
   "version": "0.1.0",
   "description": "Storage server for data gathered from Scout",
+  "engines": {
+	  "node": "12.1.0"
+	},
   "main": "server.js",
   "scripts": {
     "dev": "npx nodemon",
