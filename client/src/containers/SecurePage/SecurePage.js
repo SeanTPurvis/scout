@@ -14,7 +14,7 @@ const SecurePage = () => {
         const sensor = new window.AbsoluteOrientationSensor(options);
         sensor.start();
         setThisIntervalAbsoluteOrientation(setInterval(() => {
-            console.log(sensor.quarternion)
+            console.log(sensor)
         }, 1000));
         sensor.onerror = event => {
           if (event.error.name === 'SecurityError')
