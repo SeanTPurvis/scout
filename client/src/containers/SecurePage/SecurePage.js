@@ -11,7 +11,7 @@ const SecurePage = () => {
     
     useEffect(() => {
         const options = { frequency: 60, referenceFrame: 'device' };
-        const sensor = new AbsoluteOrientationSensor(options);
+        const sensor = new window.AbsoluteOrientationSensor(options);
         sensor.start();
         setThisIntervalAbsoluteOrientation(setInterval(() => {
             console.log(sensor.quarternion)
