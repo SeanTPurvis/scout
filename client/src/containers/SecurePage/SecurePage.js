@@ -8,10 +8,21 @@ const SecurePage = () => {
     const [intervalImage, setThisIntervalImage] = useState();
     
     useEffect(() => {
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
         const options = { frequency: 60, referenceFrame: 'device' };
         let sensor = new window.AbsoluteOrientationSensor();
         sensor.onreading = () => {
             alert(sensor.quaternion[0]);
+            axios.post("/api/v1/absorientation", {
+                user_email: user,
+                x_position: sensor.quarternion[0],
+                y_position: sensor.quarternion[1],
+                z_position: sensor.quarternion[2],
+                w_position: sensor.quarternion[3]
+            }, {
+                headers: {'Authorization': 'Bearer ' + token },
+            })
         }
         sensor.start();
         sensor.onerror = event => {
@@ -19,7 +30,6 @@ const SecurePage = () => {
             alert("No permissions to use AbsoluteOrientationSensor.");
         };
 
-        const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         if (!token) {
             setIsLoggedIn(false);
