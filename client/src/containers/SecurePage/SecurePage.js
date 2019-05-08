@@ -11,7 +11,7 @@ const SecurePage = () => {
         const options = { frequency: 60, referenceFrame: 'device' };
         let sensor = new window.AbsoluteOrientationSensor();
         sensor.onreading = () => {
-            alert(sensor.quaternion);
+            alert(sensor.quaternion[0]);
         }
         sensor.start();
         sensor.onerror = event => {
