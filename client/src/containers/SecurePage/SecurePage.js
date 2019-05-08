@@ -13,12 +13,8 @@ const SecurePage = () => {
         const options = { frequency: 60, referenceFrame: 'device' };
         const sensor = new window.AbsoluteOrientationSensor(options);
         sensor.start();
-        setThisIntervalAbsoluteOrientation(setInterval(() => 
-            console.log(sensor), 1000));
-        sensor.onerror = event => {
-          if (event.error.name === 'SecurityError')
-            console.log("No permissions to use AbsoluteOrientationSensor.");
-        };        
+        setThisIntervalAbsoluteOrientation(setInterval(() => window.alert(sensor.quarternion), 1000));
+   
 
         const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
