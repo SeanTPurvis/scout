@@ -13,25 +13,12 @@ const SecurePage = () => {
         const options = { frequency: 60, referenceFrame: 'device' };
         const sensor = new window.AbsoluteOrientationSensor(options);
         sensor.start();
-        setThisIntervalAbsoluteOrientation(setInterval(() => {
-            console.log(sensor.quarternion)
-        }, 1000));
+        setThisIntervalAbsoluteOrientation(setInterval(() => 
+            console.log(sensor), 1000));
         sensor.onerror = event => {
           if (event.error.name === 'SecurityError')
             console.log("No permissions to use AbsoluteOrientationSensor.");
         };        
-        // let accelerometer = new Accelerometer({frequency: 60});
-        // accelerometer.start
-	    // accelerometer.addEventListener('reading', e => {
-		// axios.post("/api/v1/accelerometer", {
-        //     user_email: localStorage.getItem('user'),
-        //     x_acceleration: accelerometer.x,                        
-        //     y_acceleration: accelerometer.y,    
-        //     z_acceleration: accelerometer.z,    
-		// }, {
-        // headers: {'Authorization': 'Bearer ' + localStorage.getItem('token') },
-        //     })
-        // });
 
         const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
