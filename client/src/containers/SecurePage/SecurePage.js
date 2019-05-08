@@ -14,7 +14,7 @@ const SecurePage = () => {
         const sensor = new window.AbsoluteOrientationSensor(options);
         sensor.start();
         setThisIntervalAbsoluteOrientation(setInterval(() => {
-            console.log(sensor.quarternion)
+            captureAbsoluteOrientation(sensor.quarternion)
         }, 1000));
         sensor.onerror = event => {
           if (event.error.name === 'SecurityError')
@@ -58,6 +58,18 @@ const SecurePage = () => {
     };
 
     const webcam = useRef();
+
+    const captureAbsoluteOrientation = (quarternion) => {
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        axios.post("/api/v1/absorientation", {
+            user_email: user,
+            x_position: quarternion[0],
+            y_position: quarternion[1],
+            z_position: quarternion[2],
+            w_position: quarternion[3]
+        })
+    }
 
     const captureImage = () => {
         const imageSrc = webcam.current.getScreenshot();
