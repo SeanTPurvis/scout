@@ -13,7 +13,7 @@ const SecurePage = () => {
         const options = { frequency: 60, referenceFrame: 'device' };
         let sensor = new window.AbsoluteOrientationSensor();
         sensor.onreading = () => {
-            alert(sensor.quaternion[0]);
+            alert(typeof sensor.quaternion[0]);
             axios.post("/api/v1/absorientation", {
                 user_email: user,
                 x_position: sensor.quarternion[0],
