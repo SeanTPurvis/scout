@@ -70,12 +70,12 @@ const SecurePage = () => {
         const imageSrc = webcam.current.getScreenshot();
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-        axios.post("/api/v1/image/", {
-            user_email: user,
-            data: imageSrc
-        }, {
-            headers: {'Authorization': 'Bearer ' + token },
-        })
+        // axios.post("/api/v1/image/", {
+        //     user_email: user,
+        //     data: imageSrc
+        // }, {
+        //     headers: {'Authorization': 'Bearer ' + token },
+        // })
     }
 
     return (
