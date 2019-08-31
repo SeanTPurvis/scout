@@ -12,7 +12,7 @@ const SecurePage = () => {
         const token = localStorage.getItem('token');
         const options = { frequency: 60, referenceFrame: 'device' };
         let sensor = new window.AbsoluteOrientationSensor(options);
-        sensor.onreading = () => {
+        sensor.addEventListener('reading', () => {
             alert(sensor.quaternion[0].toString(),
                 sensor.quarternion[1].toString(),
                 sensor.quarternion[2].toString(),
@@ -34,13 +34,14 @@ const SecurePage = () => {
             }, {
                 headers: {'Authorization': 'Bearer ' + token },
             })
-        }
+        })
+        sensor.addEventListener('error', error => {
+            if (event.error.name == 'NotReadableError') {
+              console.log("Sensor is not available.");
+            }
+          });
         sensor.start();
-        sensor.onerror = event => {
-          if (event.error.name === 'SecurityError')
-            alert("No permissions to use AbsoluteOrientationSensor.");
-        };
-
+        
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         if (!token) {
             setIsLoggedIn(false);
