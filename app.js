@@ -20,7 +20,7 @@ app.get('*', (req, res) => {
   
 
 // Mongo URI
-const mongoURI = 'mongodb+srv://sean:'+ process.env.MONGO_ATLAS_PW + '@scout-iszaz.mongodb.net/test?retryWrites=true';
+const mongoURI = 'mongodb+srv://sean:' + process.env.MONGO_ATLAS_PW + '@scout-iszaz.mongodb.net/test?retryWrites=true&w=majority';
 
 // Routers
 const fileRoutes = require('./routes/files');
@@ -38,6 +38,19 @@ const imageRoutes = require('./routes/image');
 mongoose.connect(mongoURI, {
     useNewUrlParser: true
 });
+
+const connectWithRetry = () => {
+  console.log('MongoDB Connection with retry')
+  mongoose.connect(mongoURI, {
+    useNewUrlParser: true
+  }).then(() => {
+    console.log("MongoDB Connected")
+  }).catch(err => {
+    console.log("MongoDB Connection  Unsuccessful, retry after 3 seconds.")
+    setTimeout(connectWithRetry, 3000)
+  })
+}
+connectWithRetry();
 mongoose.Promise = global.Promise;
 
 // Middleware
