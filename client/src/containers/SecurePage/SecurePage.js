@@ -36,12 +36,12 @@ const SecurePage = () => {
             })
         })
         sensor.addEventListener('error', error => {
-            if (event.error.name == 'NotReadableError') {
+            if (window.event.error.name == 'NotReadableError') {
               console.log("Sensor is not available.");
             }
           });
         sensor.start();
-        
+
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         if (!token) {
             setIsLoggedIn(false);
