@@ -11,7 +11,7 @@ const SecurePage = () => {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const options = { frequency: 60, referenceFrame: 'device' };
-        let sensor = new window.AbsoluteOrientationSensor();
+        let sensor = new window.AbsoluteOrientationSensor(options);
         sensor.onreading = () => {
             alert(sensor.quaternion[0].toString(),
                 sensor.quarternion[1].toString(),
