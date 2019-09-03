@@ -11,37 +11,39 @@ const SecurePage = () => {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const options = { frequency: 60, referenceFrame: 'device' };
-        let sensor = new window.AbsoluteOrientationSensor(options);
-        sensor.addEventListener('reading', () => {
-            alert(sensor.quaternion[0].toString(),
-                sensor.quarternion[1].toString(),
-                sensor.quarternion[2].toString(),
-                sensor.quarternion[3].toString()
-            );
-            // let absObject = JSON.stringify({
-            //     x_position: sensor.quarternion[0].toString(),
-            //     y_position: sensor.quarternion[1].toString(),
-            //     z_position: sensor.quarternion[2].toString(),
-            //     w_position: sensor.quarternion[3].toString() 
-            // })
-            // alert(absObject);
-            axios.post("/api/v1/absorientation", {
-                user_email: user,
-                x_position: sensor.quarternion[0].toString(),
-                y_position: sensor.quarternion[1].toString(),
-                z_position: sensor.quarternion[2].toString(),
-                w_position: sensor.quarternion[3].toString() 
-            }, {
-                headers: {'Authorization': 'Bearer ' + token },
-            })
+        // let sensor = new window.AbsoluteOrientationSensor(options);
+        // sensor.addEventListener('reading', () => {
+        //     alert(sensor.quaternion[0].toString(),
+        //         sensor.quarternion[1].toString(),
+        //         sensor.quarternion[2].toString(),
+        //         sensor.quarternion[3].toString()
+        //     );
+        //     // let absObject = JSON.stringify({
+        //     //     x_position: sensor.quarternion[0].toString(),
+        //     //     y_position: sensor.quarternion[1].toString(),
+        //     //     z_position: sensor.quarternion[2].toString(),
+        //     //     w_position: sensor.quarternion[3].toString() 
+        //     // })
+        //     // alert(absObject);
+        //     axios.post("/api/v1/absorientation", {
+        //         user_email: user,
+        //         x_position: sensor.quarternion[0].toString(),
+        //         y_position: sensor.quarternion[1].toString(),
+        //         z_position: sensor.quarternion[2].toString(),
+        //         w_position: sensor.quarternion[3].toString() 
+        //     }, {
+        //         headers: {'Authorization': 'Bearer ' + token },
+        //     })
+        // })
+        // sensor.addEventListener('error', error => {
+        //     if (window.event.error.name == 'NotReadableError') {
+        //       console.log("Sensor is not available.");
+        //     }
+        //   });
+        // sensor.start();
+        window.addEventListener('deviceorientation', function(event) {
+            console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
         })
-        sensor.addEventListener('error', error => {
-            if (window.event.error.name == 'NotReadableError') {
-              console.log("Sensor is not available.");
-            }
-          });
-        sensor.start();
-
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         if (!token) {
             setIsLoggedIn(false);
