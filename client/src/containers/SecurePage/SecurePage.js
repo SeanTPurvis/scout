@@ -6,6 +6,7 @@ import axios from 'axios';
 const SecurePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [intervalImage, setThisIntervalImage] = useState();
+    const [orientation, setOrientation] = useState({alpha: 0, beta: 0, gamma: 0});
     
     useEffect(() => {
         const user = localStorage.getItem('user');
@@ -41,6 +42,7 @@ const SecurePage = () => {
         //     }
         //   });
         // sensor.start();
+        const setFromEvent = e => setOrientation({alpha: e.alpha, beta: e.beta, gamma: e.gamma});
         window.addEventListener('deviceorientation', function(event) {
             console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
         })
